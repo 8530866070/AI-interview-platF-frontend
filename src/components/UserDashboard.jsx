@@ -12,11 +12,10 @@ import {
   X,
 } from "lucide-react";
 
-import "./App.css";
+import "./userDashboard.css";
 
-function App() {
-  // Text currently typed in the input
-  const [message, setMessage] = useState("");
+const UserDashboard = () => {
+    const [message, setMessage] = useState("");
 
   // All chat messages
   const [messages, setMessages] = useState([]);
@@ -111,10 +110,9 @@ function App() {
   const quickMessage = (text) => {
     sendMessageToApi(text);
   };
-
   return (
     <>
-      <div className="app">
+       <div className="app">
 
         {/* Mobile overlay */}
         {sidebar && (
@@ -356,7 +354,7 @@ function App() {
 
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default UserDashboard
