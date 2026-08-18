@@ -12,7 +12,7 @@ import {
   X,
 } from "lucide-react";
 
-import "./userDashboard.css";
+import "./UserDashboard.css";
 
 const UserDashboard = () => {
     const [message, setMessage] = useState("");
