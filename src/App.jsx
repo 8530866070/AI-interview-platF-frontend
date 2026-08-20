@@ -9,12 +9,12 @@ function App() {
 
   return (
     <>
-     <Router>
+     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/userDashboard" element={<UserDashboard />} />
       </Routes>
-     </Router>
+     </BrowserRouter>
     </>
   );
 }

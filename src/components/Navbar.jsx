@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar navbar-expand-lg coach-navbar fixed-top">
@@ -54,10 +56,9 @@ function Navbar() {
               Log in
             </button>
 
-            <button className="btn btn-coach">
+            <button className="btn btn-coach" onClick={() => navigate("/userDashboard")}>
               Get Started
             </button>
-
           </div>
 
         </div>

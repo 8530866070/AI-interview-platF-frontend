@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Bot,
   Plus,
@@ -19,18 +20,38 @@ const UserDashboard = () => {
 
   // All chat messages
   const [messages, setMessages] = useState([]);
-
+  const [history, setHistory] = useState([]);
   const [sidebar, setSidebar] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const messagesEndRef = useRef(null);
 
+  const navigate = useNavigate();
   // Auto scroll whenever messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
   }, [messages, loading]);
+
+   useEffect(() => {
+  const fetchHistory = async () => {
+      try {
+        const res = await axios.get("http://localhost:1414/allhistory");
+
+     
+        setHistory(res.data);
+       
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    };
+
+    fetchHistory();
+  }, []);
+
+
+
 
   // Call API
   const sendMessageToApi = async (userMessage) => {
@@ -54,8 +75,6 @@ const UserDashboard = () => {
           message: userMessage,
         }
       );
-
-      console.log("API Response:", res.data);
 
       // Add bot response
       setMessages((prev) => [
@@ -159,13 +178,17 @@ const UserDashboard = () => {
 </span>
             </button>
 
-            <button className="history-item"  onClick={() =>
-                      quickMessage("Explain Java OOP concepts")
-                    }
-                    disabled={loading} >
-              <MessageCircle size={16} />
-              Explain Java OOP
-            </button>
+       {history.map((item, index) => (
+  <button
+    className="history-item"
+    key={item.id || index}
+    onClick={() => navigate("/history")}
+    disabled={loading}
+  >
+    <MessageCircle size={16} />
+    <span>{item.title}</span>
+  </button>
+))}
 
             <button className="history-item"  onClick={() =>
                       quickMessage("Help me with React")
